@@ -1,0 +1,680 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Summarize the following article in a structured JSON format according to the given schema. \n\n⚠️ Important Instructions:\n1. Do NOT change or rewrite the title. Keep it exactly as received.\n2. Fill in all other fields based on the provided article content given.\n3. Respond only in valid JSON following the given structure.\n\nInput:\nTitle: {{ $json.title }}\n\nSchema:\n{\n  \"Title\": \"{{ $json.title }}\",\n  \"Context/Problem\": \"\",\n  \"The Innovation\": \"\",\n  \"Key Features\": [],\n  \"Applications\": \"\",\n  \"Challenges\": \"\",\n  \"Future Outlook\": \"\",\n  \"Conclusion\": \"\"\n}\n",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -464,
+        352
+      ],
+      "id": "cfb5364e-9387-458e-9d39-3f2921e6aac6",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"Title\": \"\",\n  \"Context/Problem\": \"\",\n  \"The Innovation\": \"\",\n  \"Key Features\": [],\n  \"Applications\": \"\",\n  \"Challenges\": \"\",\n  \"Future Outlook\": \"\",\n  \"Conclusion\": \"\"\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -320,
+        560
+      ],
+      "id": "09903d58-2ac2-4649-8750-4ef2a1a16076",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        560
+      ],
+      "id": "9f3e546f-0a4a-4298-9ad1-3f589600cd02",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "6cjjdDpALuWjAeVA",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1mwBbcYDD3csrqedj1mf5PhH1nDghSC3PgMnRxN6alcM",
+          "mode": "list",
+          "cachedResultName": "2.1 task",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mwBbcYDD3csrqedj1mf5PhH1nDghSC3PgMnRxN6alcM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mwBbcYDD3csrqedj1mf5PhH1nDghSC3PgMnRxN6alcM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Title": "={{ $json.output['Title'] }}",
+            "Context/Problem": "={{$json[\"output\"][\"Context/Problem\"]}}",
+            "The Innovation": "={{ $json.output['The Innovation'] }}",
+            "Key Features": "={{$json[\"output\"][\"Key Features\"].join(\", \")}}",
+            "Applications": "={{ $json.output.Applications }}",
+            "Challenges": "={{ $json.output.Challenges }}",
+            "Future Outlook": "={{ $json.output['Future Outlook'] }}",
+            "Conclusion": "={{ $json.output.Conclusion }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Context/Problem",
+              "displayName": "Context/Problem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "The Innovation",
+              "displayName": "The Innovation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Key Features",
+              "displayName": "Key Features",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Applications",
+              "displayName": "Applications",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Challenges",
+              "displayName": "Challenges",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Future Outlook",
+              "displayName": "Future Outlook",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Conclusion",
+              "displayName": "Conclusion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        32,
+        352
+      ],
+      "id": "ed04277e-aae8-4c80-99ef-cd5850a4a991",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GwylwqgaYQ5BQsMg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2.5
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -144,
+        352
+      ],
+      "id": "7464d99c-16f4-4e59-9143-fa3f2b496ed1",
+      "name": "Wait",
+      "webhookId": "e8ed4413-1936-4254-8c1b-624982694a8e"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://rss.app/feeds/WP3ljuCk5N7VLEou.xml"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        128
+      ],
+      "id": "c723a876-6a9a-46d7-aeb8-7fd4e08aee0a",
+      "name": "movies feed"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://rss.app/feeds/OYyHZnAkYqsDKiEH.xml"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        320
+      ],
+      "id": "7bf6e4be-b8d1-413c-9dda-144732c400f8",
+      "name": "podcast feeds"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://rss.app/feeds/UeBfkdceR6T0rZCS.xml"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        480
+      ],
+      "id": "838a7c85-773e-4958-b838-b5527f1b82bd",
+      "name": "travel feeds2"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://rss.app/feeds/s7fcb0527GekPB0S.xml"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1952,
+        640
+      ],
+      "id": "ff4ef77c-e64b-4a33-b744-dda9350ef725",
+      "name": "science feeds"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://rss.app/feeds/zbeDXJ3UP5cX3qTC.xml"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2128,
+        560
+      ],
+      "id": "29ca1897-8785-451b-9aed-68196224c05a",
+      "name": "google feeds"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "feedUrl": "https://rss.app/feeds/5Jc4rPxZztXBxOWQ.xml"
+      },
+      "type": "n8n-nodes-base.rssFeedReadTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2112,
+        224
+      ],
+      "id": "54bf0af9-74bf-4fc1-96f3-b5890eba809c",
+      "name": "US feeds"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "72fd7876-058d-4fd6-8e07-3c4329ec8862",
+              "leftValue": "={{ $json.title }}\n",
+              "rightValue": "=",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": false
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1408,
+        240
+      ],
+      "id": "36510c54-c7c1-4ef6-b991-715feff947f8",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1mwBbcYDD3csrqedj1mf5PhH1nDghSC3PgMnRxN6alcM",
+          "mode": "list",
+          "cachedResultName": "2.1 task",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mwBbcYDD3csrqedj1mf5PhH1nDghSC3PgMnRxN6alcM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mwBbcYDD3csrqedj1mf5PhH1nDghSC3PgMnRxN6alcM/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Title",
+              "lookupValue": "={{ $json.title }}"
+            }
+          ]
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1168,
+        224
+      ],
+      "id": "52b14ca5-65fe-49c4-bff7-be44ef77f577",
+      "name": "Get row(s) in sheet",
+      "retryOnFail": false,
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GwylwqgaYQ5BQsMg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8627394a-37a7-4080-8c81-0fc64fe6aba5",
+              "leftValue": "={{Object.keys($json).length}}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -992,
+        224
+      ],
+      "id": "ee794617-8e62-41a5-920d-6fe19fce4fe9",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -656,
+        352
+      ],
+      "id": "ff45dd8f-99f2-4ac9-955d-94f974e0d9e5",
+      "name": "Merge"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1408,
+        528
+      ],
+      "id": "e1be3fd0-1eaf-4ec2-8961-2047ec9a5a3a",
+      "name": "No Operation, do nothing"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "movies feed": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "podcast feeds": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "travel feeds2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "science feeds": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "google feeds": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "US feeds": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Operation, do nothing": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b4781692-6996-44c9-886a-24568fa4a7dd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "249cfa2843a7fbf8f205d3330fc5d286182157b5bdef408caa3c637aeb815f27"
+  },
+  "id": "UVT4neCxagv3DYrk",
+  "tags": []
+}
