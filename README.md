@@ -47,10 +47,6 @@ Before running this automation, make sure you have the following:
    You can use any **RSS Generator** tool to convert a website link into an RSS feed.
 
 2. **Paste the RSS Link** into the **RSS Trigger Node**.  
-   The automation will:
-   - 📥 Fetch the latest articles automatically  
-   - ✂️ Extract and summarize the content  
-   - 📊 Append the summarized news directly into your **Google Sheet**
 
 3. **Authenticate Google Sheets Access** —  
    Add your credentials in the **Sheet Node** so the workflow can write the fetched and summarized content to your sheet.
